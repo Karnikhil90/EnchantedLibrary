@@ -1,0 +1,12 @@
+__________________________________________________
+
+***Enchanted Library System v0.0.1 BETA-V:***
+    - Introducing BookWarp for easy book addition.
+        -> Effortless adding via a user-friendly interface.
+    - Enhanced Display Books for seamless collection navigation.
+    - QuickSearch for Books by ID or name.
+        -> Swift access to your favorite titles.
+    - Bug fixes and optimizations for a smoother experience.
+
+    Build and Design by [Twitter & GitHub: @karnikhil90 ]
+__________________________________________________
