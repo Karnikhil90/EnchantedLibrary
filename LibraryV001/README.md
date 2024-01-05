@@ -1,6 +1,6 @@
 # Project Structure
 
-## Main Class (`Main.java`)
+## Main Class (`UserControl.java`)
 
 - `main()*`: Entry point for the program.
 - `getUserChoice()*`: Takes user input for desired operations.
