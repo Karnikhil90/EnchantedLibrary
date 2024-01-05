@@ -69,7 +69,7 @@ public class LibraryManagementSystem {
     }
 
     public void SearchBookByName(String nameofbook) {// NOT WORKING
-        String[] bookList = LibraryObj.getBook();
+        String[] bookList = LibraryObj.GetBook();
         final String[] bookSearch = nameofbook.split(" ");
 
         for (int i = 0; i < bookList.length; i++) {
