@@ -6,10 +6,8 @@ package LibraryV001;
  * 
  */
 public class Library {
-    // public static final String[] GetBook = null;
-
     // Data of Field
-    private final String[] Field = { "Philosphy", "Fiction", "Non-Fiction", "Mystery", "Science",
+    private final String[] Field = { "Philosphy", "Fiction", "Non-Fiction", "Literature", "Science",
             "Politics", "Biography", "History", "Self-Help", "Programing", "School-Book" };
 
     // Data Of The book normal
@@ -51,4 +49,32 @@ public class Library {
         return BookWriter[index];
     }
 
+    public String[] GetFields() {
+        return Field;
+    }
+
+    public void AddBookData(String NewBookName, String NewBookWriter, String NewBookPrice, String NewBookID) {
+        String[] updatedBookNames = new String[BookName.length + 1];
+        String[] updatedBookWriters = new String[BookWriter.length + 1];
+        String[] updatedBookIDs = new String[BookID.length + 1];
+        String[] updatedBookPrices = new String[BookPrice.length + 1];
+
+        // Copy existing book data to the new arrays
+        System.arraycopy(BookName, 0, updatedBookNames, 0, BookName.length);
+        System.arraycopy(BookWriter, 0, updatedBookWriters, 0, BookWriter.length);
+        System.arraycopy(BookID, 0, updatedBookIDs, 0, BookID.length);
+        System.arraycopy(BookPrice, 0, updatedBookPrices, 0, BookPrice.length);
+
+        // Add the new book data to the end of the new arrays
+        updatedBookNames[BookName.length] = NewBookName;
+        updatedBookWriters[BookWriter.length] = NewBookWriter;
+        updatedBookIDs[BookID.length] = NewBookID;
+        updatedBookPrices[BookPrice.length] = NewBookPrice;
+
+        // Update the references to point to the new arrays
+        BookName = updatedBookNames;
+        BookWriter = updatedBookWriters;
+        BookID = updatedBookIDs;
+        BookPrice = updatedBookPrices;
+    }
 }

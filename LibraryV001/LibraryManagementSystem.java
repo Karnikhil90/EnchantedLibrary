@@ -48,10 +48,7 @@ public class LibraryManagementSystem {
         // Displaing the books
         System.out.println("\n\t\t****All The Books are here****\n\n");
         for (int i = 0; i < name.length; i++) {
-            System.out.println("=============================================================");
-            System.out.println("Name : '" + name[i] + "'" + " by : '" + writer[i] + "'");
-            System.out.println("Id : " + id[i] + "\tPrice : " + price[i]);
-            System.out.println("=============================================================");
+            DisplayBook(i);
         }
     }
 
@@ -62,7 +59,7 @@ public class LibraryManagementSystem {
         String id = LibraryObj.GetBookID(index);
         String price = LibraryObj.GetBookPrice(index);
 
-        System.out.println("\n\n\n=============================================================");
+        System.out.println("=============================================================");
         System.out.println("Name : '" + name + "'" + " by : '" + writer + "'");
         System.out.println("Id : " + id + "\tPrice : " + price);
         System.out.println("=============================================================");
@@ -84,4 +81,25 @@ public class LibraryManagementSystem {
         }
     }
 
+    public void AddbookByUser(String NewBookName, String NewBookWriter, String NewBookPrice, String NewBookID) {
+        byte passOrNot = -1;
+        if (!(NewBookName.length() > 0 && NewBookName.length() < 50))
+            passOrNot++;
+        if (!(NewBookWriter.length() > 0 && NewBookWriter.length() < 50))
+            passOrNot++;
+        if (!(Integer.valueOf(NewBookPrice) > 0))
+            passOrNot++;
+        if (passOrNot == -1) {
+            if (Integer.valueOf(NewBookID) < 10) { // ! '$$' is for the last value is not decided yet
+                NewBookID = "0" + NewBookID + "$$";
+            } else {
+                NewBookID = NewBookID + "$$";
+            }
+
+            LibraryObj.AddBookData(NewBookName.toUpperCase(), NewBookWriter.toUpperCase(), NewBookPrice, NewBookID);
+            System.out.println("New Book Successfully Added");
+        } else {
+            System.out.println("\t***Error: New Book Not accepted***");
+        }
+    }
 }

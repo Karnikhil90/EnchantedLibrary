@@ -9,12 +9,14 @@ import java.util.Scanner;
 public class UserControl extends LibraryManagementSystem {
 
     Scanner input; // Scanner object for user input
+    Library MainLibrary; // Library
 
     /*
      * Constructor for UserControl class
      */
     UserControl() {
         input = new Scanner(System.in); // Initialize Scanner for user input
+        MainLibrary = new Library();
     }
 
     /*
@@ -31,6 +33,7 @@ public class UserControl extends LibraryManagementSystem {
     /*
      * Method to display user menu and handle user choices
      */
+
     private void Choice() {
         // Displaying menu options
         System.out.println("\tEnter a valid Choice :");
@@ -43,7 +46,8 @@ public class UserControl extends LibraryManagementSystem {
         // Handling user choices
         if (!(choice.equalsIgnoreCase("exit"))) {
             if (choice.equalsIgnoreCase("1")) {
-                System.out.println("\t****This Service is Under Working****");
+                // // System.out.println("\t****This Service is Under Working****");
+                AddingNewBook();
             } else if (choice.equalsIgnoreCase("2")) {
                 // Display all the books
                 DisplayAllBook();
@@ -74,6 +78,43 @@ public class UserControl extends LibraryManagementSystem {
 
             System.out.println("\n\n=============================================================\n");
             Choice(); // Recursive call to keep the program running
+        }
+    }
+
+    public void AddingNewBook() {
+
+        System.out.print("Name Of the Book :");
+        String name = input.nextLine();
+        System.out.print("Who is the author of the Book :");
+        String author = input.nextLine();
+        System.out.print("What is the price of the book :");
+        String price = input.nextLine();
+
+        System.out.println("Select the field of the Book");
+        System.out.println("0. for Other Or Out of the list");
+        // TODO : Ask for Field of the Book
+        String[] RecivedField = MainLibrary.GetFields();
+        for (int i = 0; i < RecivedField.length; i++) {
+            System.out.println((i + 1) + ". " + RecivedField[i]);
+        }
+        System.out.print("Enter the choice :");
+        String choice = input.nextLine();
+        byte passOrNot = -1;
+        if (!(choice.equals(""))) {
+            if (choice.equalsIgnoreCase("0")) {
+                choice = "OTHERS"; // !Field Not Declared
+            } else if (!(Integer.valueOf(choice) > 0 && Integer.valueOf(choice) >= RecivedField.length)) {
+                passOrNot++;
+            } else {
+                passOrNot++;
+                System.err.println("***ErrorType: Input Out of choice range***");
+            }
+            if (passOrNot != -1)
+                AddbookByUser(name, author, price, choice);
+            else
+                System.out.println("try again");
+        } else {
+            System.out.println("***ErrorType: Give some Input please ***");
         }
     }
 
