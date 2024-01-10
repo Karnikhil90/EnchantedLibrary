@@ -34,16 +34,7 @@ public class LibraryManagementSystem {
     // Display all the book
     public void DisplayAllBook() {
         // Filter will be added in future
-
-        // All The Data Get
         final String[] name = LibraryObj.GetBook();
-        final String[] id = LibraryObj.GetBookID();
-        final String[] writer = LibraryObj.GetBookWriter();
-        // Prise of the book
-        String[] price = new String[name.length];
-        for (int i = 0; i < price.length; i++) {
-            price[i] = LibraryObj.GetBookPrice(i);
-        }
 
         // Displaing the books
         System.out.println("\n\t\t****All The Books are here****\n\n");
