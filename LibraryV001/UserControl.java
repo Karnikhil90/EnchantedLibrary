@@ -96,7 +96,7 @@ public class UserControl extends LibraryManagementSystem {
         System.out.print("What is the price of the book :");
         String price = input.nextLine();
 
-        System.out.println("Select the field of the Book");
+        System.out.println("\n\t***Select the field of the Book***");
         System.out.println("0. for Other Or Out of the list");
         // TODO : Ask for Field of the Book
         String[] RecivedField = MainLibrary.GetFields();
@@ -105,27 +105,34 @@ public class UserControl extends LibraryManagementSystem {
         }
         System.out.print("Enter the choice :");
         String choice = input.nextLine();
+        System.out.println("\n\n\n");
         byte passOrNot = -1;
-        if (!(choice.equals(""))) {
-            if (choice.equalsIgnoreCase("0")) {
-                choice = "OTHERS"; // !Field Not Declared
-            } else if (!(Integer.valueOf(choice) > 0 && Integer.valueOf(choice) >= RecivedField.length)) {
-                passOrNot++;
+        try {
+            choice = choice.trim();
+            if (!(choice.equals(""))) {
+                if (choice.equalsIgnoreCase("0")) {
+                    choice = "OTHERS"; // ! Out of the Field
+                } else if (!(Integer.valueOf(choice) >= 0 && Integer.valueOf(choice) >= RecivedField.length)) {
+                    passOrNot++;
+                } else {
+                    passOrNot++;
+                    System.err.println("***ErrorType: Input Out of choice range***");
+                }
+                if (passOrNot != -1)
+                    AddbookByUser(name, author, price, choice);
+                else if (Integer.valueOf(choice) >= RecivedField.length)
+                    System.out.println("****ErrorType: Out of index input****");
+                System.out.println("****Error: try again****");
             } else {
-                passOrNot++;
-                System.err.println("***ErrorType: Input Out of choice range***");
+                System.out.println("***ErrorType: Give some Input please ***");
             }
-            if (passOrNot != -1)
-                AddbookByUser(name, author, price, choice);
-            else
-                System.out.println("try again");
-        } else {
-            System.out.println("***ErrorType: Give some Input please ***");
+        } catch (Exception e) {
+            System.err.println("***ErrorType: " + e.getMessage() + "****");
         }
     }
 
     /*
-     * Method to display the version information
+     * Method to Read A file (.txt) and display the file contents
      */
     private void readAndDisplayFileInfo(String FileName) {
         File myObj = new File(FileName);

@@ -3,7 +3,7 @@ _______________________________________
 
 
 **EnchantedLibrary:**
-    - Introducing LibraryXpress, a user-friendly console-based application
+    - Introducing EnchantedLibrary, a user-friendly console-based application
         for efficient book management.
         -> Features: Add, search, and display books with ease.
 

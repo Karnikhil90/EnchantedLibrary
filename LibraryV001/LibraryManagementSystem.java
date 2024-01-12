@@ -3,10 +3,10 @@ package LibraryV001;
 // import java.util.Scanner;
 
 /*
- * This is the main which Works the most 
- * This class contains all the functionality 
- * This class access the 'library' to get data From The Library
- * 
+* This is the main which Works the most 
+* This class contains all the functionality 
+* This class access the 'library' to get data From The Library
+* 
 */
 public class LibraryManagementSystem {
 
@@ -16,6 +16,16 @@ public class LibraryManagementSystem {
     LibraryManagementSystem() {
         LibraryObj = new Library();
         // input = new Scanner(System.in);
+    }
+
+    public String toTitle(String data) {
+        String[] recivedData = data.toLowerCase().split(" ");
+        String result = "";
+
+        for (int i = 0; i < recivedData.length; i++) {
+            result += " " + recivedData[i].toUpperCase().charAt(0) + recivedData[i].substring(1);
+        }
+        return result.trim();
     }
 
     // Search By ID
@@ -51,7 +61,7 @@ public class LibraryManagementSystem {
         String price = LibraryObj.GetBookPrice(index);
 
         System.out.println("=============================================================");
-        System.out.println("Name : '" + name + "'" + " by : '" + writer + "'");
+        System.out.println("Name : '" + toTitle(name) + "'" + " by : '" + toTitle(writer) + "'");
         System.out.println("Id : " + id + "\tPrice : " + price);
         System.out.println("=============================================================");
     }
@@ -61,7 +71,6 @@ public class LibraryManagementSystem {
 
         int cheakGetOrNot = -1;
         for (int mainINDEX = 0; mainINDEX < bookList.length; mainINDEX++) {
-            // System.out.println(bookList[i]);
             for (String book : bookList[mainINDEX].split(" ")) {
                 for (String recivedBook : nameofbook.split(" ")) {
                     if (recivedBook.equalsIgnoreCase(book)) {
@@ -74,18 +83,30 @@ public class LibraryManagementSystem {
             }
         }
         if (cheakGetOrNot == -1) {
-            System.err.println("****ErrorType: Book Doesnt Exist****");
+            System.err.println("\n\t****ErrorType: Book Doesnt Exist****");
         }
     }
 
     public void AddbookByUser(String NewBookName, String NewBookWriter, String NewBookPrice, String NewBookID) {
         byte passOrNot = -1;
-        if (!(NewBookName.length() > 0 && NewBookName.length() < 50))
+        if (!(NewBookName.length() > 0 && NewBookName.length() < 50)) {
             passOrNot++;
-        if (!(NewBookWriter.length() > 0 && NewBookWriter.length() < 50))
+            System.err.println("***ErrorType: The length of the book Name must be under 50 characters***");
+        }
+        if (!(NewBookWriter.length() > 0 && NewBookWriter.length() < 50)) {
             passOrNot++;
-        if (!(Integer.valueOf(NewBookPrice) > 0))
+            System.err.println("***ErrorType: The length of the book Author must be under 50 characters***");
+
+        }
+        try {
+            if (NewBookWriter != null && NewBookWriter != "") {
+                if (!(Integer.valueOf(NewBookPrice) > 0))
+                    passOrNot++;
+            }
+        } catch (Exception e) {
             passOrNot++;
+            System.err.println("****ErrorType: " + e.getClass() + " ****");
+        }
         if (passOrNot == -1) {
             if (Integer.valueOf(NewBookID) < 10) { // ! '$$' is for the last value is not decided yet
                 NewBookID = "0" + NewBookID + "$$";
@@ -99,4 +120,5 @@ public class LibraryManagementSystem {
             System.out.println("\t***Error: New Book Not accepted***");
         }
     }
+
 }

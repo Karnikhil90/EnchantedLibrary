@@ -12,7 +12,7 @@ public class Library {
 
     // Data Of The book normal
     private String[] BookName = { "Atomic Habbits", "48 Laws of Power", "DO EPIC SHIT", "THE REPUBLIC",
-            "THE COMMUNIST MANIFESTO", "Think Like a Monk", "The Origin of Species" };
+            "THE COMMUNIST MANIFESTO", "Think Like a Monk", "The origin of species" };
     private String[] BookWriter = { "James Clear", "Robert Greene", "Ankur Warikoo", "Plato", "Karl Marx",
             "Jay Shetty", "Charles Darwin" };
     private String[] BookID = { "0901", "0902", "0903", "0101", "0601", "0904", "0301" };
@@ -21,14 +21,21 @@ public class Library {
     // Getter and setters
     // Get Book Data
     // # By Id, Name and Title/Field
-    public String GetBookID(int index) {
-        return BookID[index];
-    }
 
     public String[] GetBookID() {
         return BookID;
     }
 
+    /*
+     * overloaded Or Polymorphism
+     */
+    public String GetBookID(int index) {
+        return BookID[index];
+    }
+
+    /*
+     * overloaded Or Polymorphism
+     */
     public String GetBook(int index) {
         return BookName[index];
     }
@@ -37,6 +44,9 @@ public class Library {
         return BookName;
     }
 
+    /*
+     * overloaded Or Polymorphism
+     */
     public String GetBookPrice(int index) {
         return BookPrice[index];
     }
@@ -45,6 +55,9 @@ public class Library {
         return BookWriter;
     }
 
+    /*
+     * overloaded Or Polymorphism
+     */
     public String GetBookWriter(int index) {
         return BookWriter[index];
     }
