@@ -4,12 +4,17 @@ import java.io.File;
 import java.util.Scanner;
 
 /*
- * This class represents user control for the Library Management System.
- */
+* This class represents user control for the Library Management System.
+*/
 public class UserControl extends LibraryManagementSystem {
 
     Scanner input; // Scanner object for user input
     Library MainLibrary; // Library
+
+    // * File path of the version file
+    private final String filePathOfVersionData = "LibraryV001\\v0.0.1.txt";
+    // * File path of the just one's when it starts
+    private static final String filePathOfStarterData = "stater.txt";
 
     /*
      * Constructor for UserControl class
@@ -62,8 +67,9 @@ public class UserControl extends LibraryManagementSystem {
                     if (choice.equalsIgnoreCase("1")) {
                         SearchByID(UserInput());
                     } else if (choice.equalsIgnoreCase("2")) {
-                        System.out.println("book by Name will be added ");
-                        // SearchBookByName(UserInput());
+                        System.out.println("Tell me what ever you remember about the book name \n");
+                        SearchBookByName(UserInput());
+
                     } else {
                         Choice();
                         System.out.println("Give a Valid Input ");
@@ -71,7 +77,7 @@ public class UserControl extends LibraryManagementSystem {
                 }
             } else if (choice.equalsIgnoreCase("version") || choice.equalsIgnoreCase("v")) {
                 // Display system version
-                Version();
+                readAndDisplayFileInfo(filePathOfVersionData);
             } else {
                 System.out.println("\t\t*****Please Give a valid Input*****");
             }
@@ -121,9 +127,8 @@ public class UserControl extends LibraryManagementSystem {
     /*
      * Method to display the version information
      */
-    private void Version() {
-        final String filePathOfVersionData = "EnchantedLibrary\\v0.0.1.txt";
-        File myObj = new File(filePathOfVersionData);
+    private void readAndDisplayFileInfo(String FileName) {
+        File myObj = new File(FileName);
 
         int numberOfLines = 0;
 
@@ -138,13 +143,13 @@ public class UserControl extends LibraryManagementSystem {
             System.err.println("\t****Error Type : Some Problem To read it****");
         }
 
-        String[] CurrentVersion = new String[numberOfLines]; // Storing The File Info..
+        String[] FileContents = new String[numberOfLines]; // Storing The File Info..
 
         try {
             Scanner myReader = new Scanner(myObj);
             short i = 0;
             while (myReader.hasNextLine()) {
-                CurrentVersion[i] = myReader.nextLine(); // Read
+                FileContents[i] = myReader.nextLine(); // Read
                 i++;
             }
             myReader.close(); // Close the Scanner
@@ -153,9 +158,9 @@ public class UserControl extends LibraryManagementSystem {
         }
 
         // Displaying version information
-        for (int i = 0; i < CurrentVersion.length; i++) {
-            if (CurrentVersion[i] != null) // Just For test
-                System.out.println(CurrentVersion[i]);
+        for (int i = 0; i < FileContents.length; i++) {
+            if (FileContents[i] != null) // Just For test
+                System.out.println(FileContents[i]);
         }
     }
 
@@ -163,6 +168,8 @@ public class UserControl extends LibraryManagementSystem {
      * Main method to start the program
      */
     public static void main(String[] args) {
-        new UserControl().Choice(); // Creating an instance and calling the Choice method
+        UserControl myObj = new UserControl();
+        myObj.readAndDisplayFileInfo(filePathOfStarterData);
+        myObj.Choice(); // Creating an instance and calling the Choice method
     }
 }

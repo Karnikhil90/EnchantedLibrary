@@ -56,19 +56,25 @@ public class LibraryManagementSystem {
         System.out.println("=============================================================");
     }
 
-    public void SearchBookByName(String nameofbook) {// NOT WORKING
+    public void SearchBookByName(String nameofbook) {
         String[] bookList = LibraryObj.GetBook();
-        final String[] bookSearch = nameofbook.split(" ");
 
-        for (int i = 0; i < bookList.length; i++) {
-            String[] newBookname = (" " + bookList[i]).split(" ");
-            for (int j = 0; j < newBookname.length; j++) {
-                if (newBookname[j].equalsIgnoreCase(bookSearch[0])
-                        || newBookname[j].equalsIgnoreCase(bookSearch[1])) {
-                    System.out.println("Index" + i);
-                    break;
+        int cheakGetOrNot = -1;
+        for (int mainINDEX = 0; mainINDEX < bookList.length; mainINDEX++) {
+            // System.out.println(bookList[i]);
+            for (String book : bookList[mainINDEX].split(" ")) {
+                for (String recivedBook : nameofbook.split(" ")) {
+                    if (recivedBook.equalsIgnoreCase(book)) {
+                        DisplayBook(mainINDEX);
+                        cheakGetOrNot = mainINDEX;
+                        break;
+                    }
+
                 }
             }
+        }
+        if (cheakGetOrNot == -1) {
+            System.err.println("****ErrorType: Book Doesnt Exist****");
         }
     }
 
