@@ -1,21 +1,40 @@
 # Project Structure
 
-## Main Class (`UserControl.java`)
+## Management Folder
 
-- `main()*`: Entry point for the program.
-- `getUserChoice()*`: Takes user input for desired operations.
-- `performUserOperation(int choice, LibraryManagement libraryManagement)*`: Calls methods from `LibraryManagement` based on user choices.
+### Main Class (`UserControl.java`)
 
-## LibraryManagement Class (`LibraryManagement.java`)
+- `Choice()`: Display user menu and handle choices.
+- `AddingNewBook()`: Handle the process of adding a new book.
+- `readAndDisplay(FileName)`: Read a file (.txt) and display its contents.
 
-- `addBook(Book book, Library library)*`: Adds a new book to the library.
-- `searchBook(String bookId, Library library)*`: Searches for a book in the library.
+### LibraryManagementSystem Class (`LibraryManagementSystem.java`)
 
-## Library Class (`Library.java`)
+- `SearchByID()`: Search for a book by ID.
+- `DisplayAllBook()`: Display all books in the library.
+- `DisplayBook()`: Display a specific book.
+- `SearchBookByName()`: Search for a book by name.
+- `AddbookByUser()`: Add a new book.
+- `BOOKID_Gernrator()`: Generate a new Book ID.
 
-- `getBooks(int indexOfBook)*`: Returns a list of all books in the library or a specific book based on the index.
-- `addBook(String BookName, BookPrice, int Field)*`: Adds a book to the library with specified details.
-- `searchBookById(String bookId)*`: Searches for a book by ID.
+## BookData Folder
+
+### Library Class (`Library.java`)
+
+- `getBooks(indexOfBook)`: Return a list of all books or a specific book based on the index.
+- `addBook(bookName,bookPrice, field)`: Add a book to the library.
+- `searchBookById(bookId)`: Search for a book by ID.
+- `GetBookID()`, `GetBookID(index)`, `GetBook(index)`, `GetBook()`, `GetBookPrice(index)`, `GetBookWriter()`, `GetBookWriter(index)`, `GetFields()`: Get book information.
+- `AddBookData(NewBookName, NewBookWriter, NewBookPrice, NewBookID)`: Add new book data.
+
+### FileAccess Class (`FileAccess.java`)
+
+- `readData()`: Read book data from files.
+- `writeData()`: Write book data to files.
+
+## TxtData Folder
+
+- Contains details about the version and o.
 
 ## Contact Information
 

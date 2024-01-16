@@ -1,4 +1,4 @@
-package LibraryV002;
+package LibraryV002.Management;
 
 import LibraryV002.BookData.Library;
 
@@ -12,18 +12,22 @@ public class LibraryManagementSystem {
 
     private Library LibraryObj;
 
-    LibraryManagementSystem() {
+    protected LibraryManagementSystem() {
+        // super();
         LibraryObj = new Library();
     }
 
     public String toTitle(String data) {
-        String[] recivedData = data.toLowerCase().split(" ");
-        String result = "";
+        if (data != null) {
+            String[] recivedData = data.toLowerCase().split(" ");
+            String result = "";
 
-        for (int i = 0; i < recivedData.length; i++) {
-            result += " " + recivedData[i].toUpperCase().charAt(0) + recivedData[i].substring(1);
+            for (int i = 0; i < recivedData.length; i++) {
+                result += " " + recivedData[i].toUpperCase().charAt(0) + recivedData[i].substring(1);
+            }
+            return result.trim();
         }
-        return result.trim();
+        return "";
     }
 
     // Search By ID
@@ -124,6 +128,6 @@ public class LibraryManagementSystem {
                 big = (big > temp) ? big : temp;
             }
         }
-        return RecivedField_ROllNo += (big + 1 > 10) ? String.valueOf(big + 1) : "0" + String.valueOf(big + 1);
+        return RecivedField_ROllNo += (big + 1 >= 10) ? String.valueOf(big + 1) : "0" + String.valueOf(big + 1);
     }
 }

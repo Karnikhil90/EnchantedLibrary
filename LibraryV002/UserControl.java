@@ -1,8 +1,8 @@
 package LibraryV002;
 
-import java.io.File;
 import java.util.Scanner;
-import LibraryV002.BookData.Library;
+import LibraryV002.BookData.*;
+import LibraryV002.Management.LibraryManagementSystem;
 
 /*
 * This class represents user control for the Library Management System.
@@ -11,6 +11,7 @@ public class UserControl extends LibraryManagementSystem {
 
     Scanner input; // Scanner object for user input
     Library MainLibrary; // Library
+    FileAccess GetFiles; //
 
     // * File path of the version file
     private final String filePathOfVersionData = "LibraryV002\\TextInfo\\v0.0.2.txt";
@@ -21,8 +22,10 @@ public class UserControl extends LibraryManagementSystem {
      * Constructor for UserControl class
      */
     UserControl() {
+        super();
         input = new Scanner(System.in); // Initialize Scanner for user input
         MainLibrary = new Library();
+        GetFiles = new FileAccess();
     }
 
     /*
@@ -52,7 +55,6 @@ public class UserControl extends LibraryManagementSystem {
         // Handling user choices
         if (!(choice.equalsIgnoreCase("exit"))) {
             if (choice.equalsIgnoreCase("1")) {
-                // // System.out.println("\t****This Service is Under Working****");
                 AddingNewBook();
             } else if (choice.equalsIgnoreCase("2")) {
                 // Display all the books
@@ -78,7 +80,7 @@ public class UserControl extends LibraryManagementSystem {
                 }
             } else if (choice.equalsIgnoreCase("version") || choice.equalsIgnoreCase("v")) {
                 // Display system version
-                readAndDisplayFileInfo(filePathOfVersionData);
+                readAndDisplay(filePathOfVersionData);
             } else {
                 System.out.println("\t\t*****Please Give a valid Input*****");
             }
@@ -102,7 +104,7 @@ public class UserControl extends LibraryManagementSystem {
         // TODO : Ask for Field of the Book
         String[] RecivedField = MainLibrary.GetFields();
         for (int i = 0; i < RecivedField.length; i++) {
-            System.out.println((i + 1) + ". " + RecivedField[i]);
+            System.out.println((i + 1) + ". " + toTitle(RecivedField[i]));
         }
         System.out.print("Enter the choice :");
         String choice = input.nextLine();
@@ -128,40 +130,12 @@ public class UserControl extends LibraryManagementSystem {
     /*
      * Method to Read A file (.txt) and display the file contents
      */
-    private void readAndDisplayFileInfo(String FileName) {
-        File myObj = new File(FileName);
+    private void readAndDisplay(String FileName) {
 
-        int numberOfLines = 0;
-
-        try {
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                numberOfLines++;
-                myReader.nextLine(); // Read and discard the line
-            }
-            myReader.close(); // Close the Scanner
-        } catch (Exception e) {
-            System.err.println("\t****Error Type : Some Problem To read it****");
-        }
-
-        String[] FileContents = new String[numberOfLines]; // Storing The File Info..
-
-        try {
-            Scanner myReader = new Scanner(myObj);
-            short i = 0;
-            while (myReader.hasNextLine()) {
-                FileContents[i] = myReader.nextLine(); // Read
-                i++;
-            }
-            myReader.close(); // Close the Scanner
-        } catch (Exception e) {
-            System.err.println("\t****Error Type : Some Problem To Saving In String[n] ****");
-        }
-
-        // Displaying version information
-        for (int i = 0; i < FileContents.length; i++) {
-            if (FileContents[i] != null) // Just For test
-                System.out.println(FileContents[i]);
+        String[] recived = GetFiles.readAndDisplayFileInfo(FileName);
+        for (int i = 0; i < recived.length; i++) {
+            if (recived[i] != null) // Just For test
+                System.out.println(recived[i]);
         }
     }
 
@@ -170,7 +144,7 @@ public class UserControl extends LibraryManagementSystem {
      */
     public static void main(String[] args) {
         UserControl myObj = new UserControl();
-        myObj.readAndDisplayFileInfo(filePathOfStarterData);
+        myObj.readAndDisplay(filePathOfStarterData);
         myObj.Choice(); // Creating an instance and calling the Choice method
     }
 }

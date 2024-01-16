@@ -1,6 +1,6 @@
 __________________________________________________
 
-***Enchanted Library System v0.0.1 :***
+***Enchanted Library System v0.0.2 :***
 
     (+) Effortless Book Retrieval:
         Seamlessly search and locate books by name or ID, providing users 
@@ -9,10 +9,10 @@ __________________________________________________
     (+) Simplified Book Addition:
         Easily expand your library's collection with a user-friendly 
         interface, allowing efficient entry of essential details for new books.
-
-    (+) Holistic Management: 
-        Enhance library efficiency with streamlined searches, 
-        additions, and comprehensive administrative features.
+        
+    (+) Data Persistence:
+        Book data is now securely stored in `.txt` files, ensuring 
+        consistent and reliable access to your library's information.
 
     ->Bug fixes and optimizations for a smoother experience.
 
