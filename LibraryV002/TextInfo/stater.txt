@@ -1,16 +1,17 @@
-_______________________________________
+______________________________________________________________________________
+ 
+    
+                        ***EnchantedLibrary: With File Storing***
 
- 
- 
-**EnchantedLibrary:**
+
     - Introducing EnchantedLibrary, a user-friendly console-based application
         for efficient book management.
 
         -> Features: Add, search, and display books with ease.
 
-        -> Features: All the data's are now stord in a file(.txt);
-
-        Build and Design by Nikhil Karmakar
+        -> Features: All the data's are now stord in a file(.txt)
+                                    
+            ==== Build and Design by Nikhil Karmakar ====
 
  
-_______________________________________
+______________________________________________________________________________

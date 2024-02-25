@@ -118,7 +118,7 @@ public class LibraryManagementSystem {
     }
 
     public String BOOKID_Gernrator(String RecivedField_ROllNo) {
-        RecivedField_ROllNo = (Integer.valueOf(RecivedField_ROllNo) > 10) ? RecivedField_ROllNo
+        RecivedField_ROllNo = (Integer.valueOf(RecivedField_ROllNo) >= 10) ? RecivedField_ROllNo
                 : "0" + RecivedField_ROllNo;
         int big = 0;
         String[] BookIDs = LibraryObj.GetBookID();
@@ -128,6 +128,45 @@ public class LibraryManagementSystem {
                 big = (big > temp) ? big : temp;
             }
         }
-        return RecivedField_ROllNo += (big + 1 >= 10) ? String.valueOf(big + 1) : "0" + String.valueOf(big + 1);
+        big++;
+        return RecivedField_ROllNo += (big >= 10) ? String.valueOf(big) : "0" + String.valueOf(big);
+    }
+
+    public void FielterToDisplayBook(String IDX) {
+        if (!(IDX.trim().equalsIgnoreCase("all"))) {
+            short numberOfBooks = 0;
+            IDX = (Integer.valueOf(IDX) >= 10) ? IDX : "0" + Integer.valueOf(IDX);
+            if (IDX.trim() != null || IDX.trim().equals(" ")) {
+                String[] BookID = LibraryObj.GetBookID();
+                for (int i = 0; i < BookID.length; i++) {
+                    if (BookID[i].startsWith(IDX)) {
+                        numberOfBooks++;
+                        DisplayBook(i);
+                    }
+                }
+                if (numberOfBooks != 0)
+                    System.out.println("Number of books : " + numberOfBooks);
+                else {
+                    System.out.println("=============================================================");
+                    System.out.println("\n\t****In this field no book exist****");
+                }
+            } else {
+                System.err.println("\n\t***The Value is 'null'*** ");
+            }
+        } else
+            DisplayAllBook();
+    }
+
+    // @return
+    public int CountBookInOneField(String IDX) {
+        int numberOfBooks = 0;
+        IDX = (Integer.valueOf(IDX) >= 10) ? IDX : "0" + Integer.valueOf(IDX);
+        String[] BookID = LibraryObj.GetBookID();
+        for (int i = 0; i < BookID.length; i++) {
+            if (BookID[i].startsWith(IDX)) {
+                numberOfBooks++;
+            }
+        }
+        return numberOfBooks;
     }
 }

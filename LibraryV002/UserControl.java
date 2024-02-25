@@ -17,6 +17,7 @@ public class UserControl extends LibraryManagementSystem {
     private final String filePathOfVersionData = "LibraryV002\\TextInfo\\v0.0.2.txt";
     // * File path of the just one's when it starts
     private static final String filePathOfStarterData = "LibraryV002\\TextInfo\\stater.txt";
+    String[] RecivedField;
 
     /*
      * Constructor for UserControl class
@@ -26,6 +27,7 @@ public class UserControl extends LibraryManagementSystem {
         input = new Scanner(System.in); // Initialize Scanner for user input
         MainLibrary = new Library();
         GetFiles = new FileAccess();
+        RecivedField = MainLibrary.GetFields();
     }
 
     /*
@@ -41,44 +43,60 @@ public class UserControl extends LibraryManagementSystem {
 
     /*
      * Method to display user menu and handle user choices
+     * Few Extra:
+     * -> "version" : for knowning the current version
+     * -> "exit" : for Close the program
      */
 
     private void Choice() {
         // Displaying menu options
         System.out.println("\tEnter a valid Choice :");
         System.out.println("\t1. Add Books to Library ");
-        System.out.println("\t2. Display Books ");
-        System.out.println("\t3. Search Books ");
+        System.out.println("\t2. Display All Books  ");
+        System.out.println("\t3. Display Book On a Secific Field");
+        System.out.println("\t4. Search Books By Name ");
+        System.out.println("\t5. Search Books By ID ");
 
         String choice = UserInput(); // Get user choice
-
         // Handling user choices
-        if (!(choice.equalsIgnoreCase("exit"))) {
+        if (!(choice.equalsIgnoreCase("exit") ||
+                (choice.equalsIgnoreCase("e")))) {
             if (choice.equalsIgnoreCase("1")) {
                 AddingNewBook();
             } else if (choice.equalsIgnoreCase("2")) {
                 // Display all the books
                 DisplayAllBook();
+            } else if (choice.equalsIgnoreCase("r") ||
+                    choice.equalsIgnoreCase("refresh")) {
+                MainLibrary.RefeshData();
             } else if (choice.equalsIgnoreCase("3")) {
-                // Search Books menu
-                System.out.println("\t 1. Book By Id  ");
-                System.out.println("\t 2. Book by Name ");
-                choice = UserInput();
 
-                // Handling search choices
-                if (!(choice.equalsIgnoreCase("exit"))) {
-                    if (choice.equalsIgnoreCase("1")) {
-                        SearchByID(UserInput());
-                    } else if (choice.equalsIgnoreCase("2")) {
-                        System.out.println("Tell me what ever you remember about the book name \n");
-                        SearchBookByName(UserInput());
-
-                    } else {
-                        Choice();
-                        System.out.println("Give a Valid Input ");
-                    }
+                System.out.println("\n\t***Select the field of the Book***");
+                System.out.println("\t\t0. OTHERS ");
+                // TODO : @return Ask for Field of the Book
+                for (int i = 0; i < RecivedField.length; i++) {
+                    if (CountBookInOneField(String.valueOf(i + 1)) > 0)
+                        System.out.println("\t\t" + (i + 1) + ". " + toTitle(RecivedField[i]));
                 }
-            } else if (choice.equalsIgnoreCase("version") || choice.equalsIgnoreCase("v")) {
+                System.out.print("\tEnter the choice :");
+                String SpecificField = input.nextLine();
+                if (!(SpecificField.trim().equalsIgnoreCase("e") || SpecificField.trim().equalsIgnoreCase("exit")))
+                    FielterToDisplayBook(SpecificField.trim());
+
+            } else if (choice.equalsIgnoreCase("4")) {
+                // Handling search choices
+                System.out.print("Tell me what ever you remember about the book name \n");
+                SearchBookByName(UserInput());
+
+            } else if (choice.equalsIgnoreCase("5")) {
+                try {
+                    SearchByID(UserInput());
+                } catch (Exception e) {
+                    System.err.println("\n****OUT OF INDEX****");
+                }
+            }
+
+            else if (choice.equalsIgnoreCase("version") || choice.equalsIgnoreCase("v")) {
                 // Display system version
                 readAndDisplay(filePathOfVersionData);
             } else {
@@ -87,6 +105,7 @@ public class UserControl extends LibraryManagementSystem {
 
             System.out.println("\n\n=============================================================\n");
             Choice(); // Recursive call to keep the program running
+            System.out.println("***System Exited***** ");
         }
     }
 
@@ -100,9 +119,8 @@ public class UserControl extends LibraryManagementSystem {
         String price = input.nextLine();
 
         System.out.println("\n\t***Select the field of the Book***");
-        System.out.println("0. for Other OR out of the list");
+        System.out.println("0. OTHERS ");
         // TODO : Ask for Field of the Book
-        String[] RecivedField = MainLibrary.GetFields();
         for (int i = 0; i < RecivedField.length; i++) {
             System.out.println((i + 1) + ". " + toTitle(RecivedField[i]));
         }

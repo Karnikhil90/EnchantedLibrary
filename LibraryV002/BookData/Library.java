@@ -119,9 +119,15 @@ public class Library extends FileAccess {
         return Field;
     }
 
+    public void RefeshData() {
+        System.out.println("\n\t***Arrrys has been Refesh***\n");
+        SetData();
+    }
+
     public void AddBookData(String NewBookName, String NewBookWriter, String NewBookPrice, String NewBookID) {
-        String CombineBookData = NewBookName + "," + NewBookWriter + "," + NewBookPrice + "," + NewBookID;
+        CombineBookData = NewBookName + "," + NewBookWriter + "," + NewBookPrice + "," + NewBookID;
         writeAndDisplayFileInfo(pathOfData, CombineBookData);
         SetData();
+        CombineBookData = "";
     }
 }
