@@ -120,7 +120,7 @@ public class UserControl extends LibraryManagementSystem {
 
         System.out.println("\n\t***Select the field of the Book***");
         System.out.println("0. OTHERS ");
-        // TODO : Ask for Field of the Book
+
         for (int i = 0; i < RecivedField.length; i++) {
             System.out.println((i + 1) + ". " + toTitle(RecivedField[i]));
         }

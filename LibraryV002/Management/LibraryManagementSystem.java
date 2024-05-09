@@ -18,6 +18,7 @@ public class LibraryManagementSystem {
     }
 
     public String toTitle(String data) {
+        data = data.trim();
         if (data != null) {
             String[] recivedData = data.toLowerCase().split(" ");
             String result = "";

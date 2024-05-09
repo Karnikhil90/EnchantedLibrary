@@ -11,7 +11,7 @@ public class Library extends FileAccess {
     // Data of Field
     private final String[] Field = { "Philosphy", "Fiction", "Non-Fiction", "Literature", "Science",
             "Politics", "Biography", "History", "Self-Help", "Programing", "School-Book", "autobiography",
-            "biography", "Nobles", "Religious" };
+            "Fantasy", "Nobles", "Religious" };
     private final String pathOfData = "LibraryV002\\BookData\\book_inventory.txt";
 
     // Data Of The book normal

@@ -9,7 +9,7 @@ public class FileAccess {
     public int readNumberOfLinesFileInfo(String FileName) {
         File myObj = new File(FileName);
         int numberOfLines = 0;
-        int numberOfBlanks = 0;
+        byte numberOfBlanks = 0;
 
         try {
             Scanner myReader = new Scanner(myObj);
