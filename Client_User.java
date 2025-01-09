@@ -1,9 +1,10 @@
 
+import java.io.IOException;
 import java.util.Scanner;
 
-import src.inventory.Book;
-import src.inventory.Library;
-import src.routes.*;
+import inventory.Book;
+import inventory.Library;
+// import routes.*;
 
 public class Client_User {
 
@@ -16,7 +17,8 @@ public class Client_User {
     }
 
     // choice(String cmd): only recive the command and responce
-    public void choice(String cmd) {
+    public void choice(String... commad) {
+        String cmd = commad[0];
         System.out.println(cmd);
         if (cmd.equals("1")) {
             // Borrow
@@ -70,10 +72,28 @@ public class Client_User {
         }
     }
 
+    private void clear() {
+        try {
+            // Detect the operating system
+            String os = System.getProperty("os.name").toLowerCase();
+
+            // Execute the appropriate command
+            if (os.contains("win")) {
+                // For Windows
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // For Unix/Linux/Mac
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException ex) {
+            System.err.println("Failed to clear the terminal: " + ex.getMessage());
+        }
+    }
+
     public void get_user_choice() {
         String choice;
         System.out.println("choose your choice =>");
-        System.out.print("1. Borrow \n2. Return \n3. Search ");
+        System.out.print("1. Borrow \n2. Return \n3. Search\n");
         System.out.print("Enter your choice : ");
 
         choice = scanner.nextLine();
@@ -84,9 +104,21 @@ public class Client_User {
             case "3":
                 choice(choice);
                 break;
+            case "0":
+                System.out.println("Exit");
+                break;
+            case "clear":
+                clear();
+                break;
             default:
                 System.out.println("ErrorType : Invalid Choice : ");
                 break;
         }
+    }
+
+    public static void main(String[] args) {
+        Client_User client = new Client_User();
+        while (true)
+            client.get_user_choice();
     }
 }

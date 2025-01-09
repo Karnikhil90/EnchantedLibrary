@@ -2,11 +2,26 @@ package inventory;
 
 import java.util.ArrayList;
 
+// import FileAccess.FileAccess;
+import FileAccess.MyCSV;
+
 public class Library {
     private ArrayList<Book> books;
+    private MyCSV file;
+    private String filepath = "src/inventory/books.csv";
 
     public Library() {
         books = new ArrayList<>();
+        file = new MyCSV(filepath);
+    }
+
+    // loadBooks(): load books from the file
+    public void loadBooks() {
+        ArrayList<String> data = file.read();
+        for (String[] row : data) {
+            Book book = new Book();
+            books.add(book);
+        }
     }
 
     // Add a book to the library
