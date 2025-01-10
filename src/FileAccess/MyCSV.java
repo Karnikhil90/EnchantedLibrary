@@ -9,8 +9,11 @@ public class MyCSV {
         fileAccess = new FileAccess(filepath);
 
         if (!fileAccess.isFileExists()) {
+            System.out.println("File not found, creating new file...");
             fileAccess.createFile();
             fileAccess.write(filepath);
+        } else {
+            System.out.println("File found");
         }
     }
 
@@ -41,6 +44,7 @@ public class MyCSV {
      * auto increment
      * 
      */
+
     public void write(String data) {
         List<String> header = hearder();
         List<String> rows = fileAccess.read();

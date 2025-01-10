@@ -1,6 +1,6 @@
 package inventory;
 
-import java.util.ArrayList;
+import java.util.*;
 
 // import FileAccess.FileAccess;
 import FileAccess.MyCSV;
@@ -8,18 +8,29 @@ import FileAccess.MyCSV;
 public class Library {
     private ArrayList<Book> books;
     private MyCSV file;
-    private String filepath = "src/inventory/books.csv";
+    private String filepath = ".\\database\\books.csv"; // default file path
 
     public Library() {
         books = new ArrayList<>();
         file = new MyCSV(filepath);
+        // loadBooks();
+    }
+
+    public Library(String filepath) {
+        books = new ArrayList<>();
+        file = new MyCSV(filepath);
+        // loadBooks();
+    }
+
+    public ArrayList<Book> getBooks() {
+        return new ArrayList<>(books);
     }
 
     // loadBooks(): load books from the file
     public void loadBooks() {
-        ArrayList<String> data = file.read();
-        for (String[] row : data) {
-            Book book = new Book();
+        List<Map<String, String>> data = file.toMap();
+        for (Map<String, String> row : data) {
+            Book book = new Book(row);
             books.add(book);
         }
     }

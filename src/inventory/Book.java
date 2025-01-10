@@ -12,6 +12,13 @@ public class Book {
         this.id = id;
     }
 
+    public Book(Map<String, String> book) {
+        this.title = book.getOrDefault("title", null);
+        this.author = book.getOrDefault("author", null);
+        this.price = book.getOrDefault("price", null);
+        this.id = book.getOrDefault("id", null);
+    }
+
     public Map<String, String> toMap() {
         return Map.of("title", title, "author", author, "price", price, "id", id);
     }
