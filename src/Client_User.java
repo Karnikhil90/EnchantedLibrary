@@ -3,17 +3,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import inventory.Book;
-import inventory.Library;
-// import routes.*;
+import routes.Routes;
 
 public class Client_User {
 
     Scanner scanner;
-    Library library;
+    Routes routes;
 
     public Client_User() {
         scanner = new Scanner(System.in);
-        library = new Library();
+        routes = new Routes();
     }
 
     // choice(String cmd): only recive the command and responce
@@ -24,7 +23,7 @@ public class Client_User {
             // Borrow
             System.out.print("Enter book ID to borrow: ");
             String bookId = scanner.nextLine();
-            Book book = library.searchBookById(bookId);
+            Book book = routes.searchBookById(bookId);
             if (book != null) {
                 System.out.println("Borrowed: " + book);
                 // Add logic to mark the book as borrowed
@@ -35,7 +34,7 @@ public class Client_User {
             // Return
             System.out.print("Enter book ID to return: ");
             String bookId = scanner.nextLine();
-            Book book = library.searchBookById(bookId);
+            Book book = routes.searchBookById(bookId);
             if (book != null) {
                 System.out.println("Returned: " + book);
                 // Add logic to mark the book as returned
@@ -49,7 +48,7 @@ public class Client_User {
             if (searchType.equals("1")) {
                 System.out.print("Enter book ID: ");
                 String bookId = scanner.nextLine();
-                Book book = library.searchBookById(bookId);
+                Book book = routes.searchBookById(bookId);
                 if (book != null) {
                     System.out.println("Found: " + book);
                 } else {
@@ -58,7 +57,7 @@ public class Client_User {
             } else if (searchType.equals("2")) {
                 System.out.print("Enter book title: ");
                 String title = scanner.nextLine();
-                Book book = library.searchBookByTitle(title);
+                Book book = routes.searchBookByTitle(title);
                 if (book != null) {
                     System.out.println("Found: " + book);
                 } else {

@@ -4,12 +4,14 @@ import java.util.Map;
 
 public class Book {
     private String title, author, id, price;
+    private int quantity;
 
-    public Book(String title, String author, String price, String id) {
+    public Book(String title, String author, String price, String id, int quantity) {
         this.title = title;
         this.author = author;
         this.price = price;
         this.id = id;
+        this.quantity = quantity;
     }
 
     public Book(Map<String, String> book) {
@@ -17,6 +19,7 @@ public class Book {
         this.author = book.getOrDefault("author", null);
         this.price = book.getOrDefault("price", null);
         this.id = book.getOrDefault("id", null);
+        this.quantity = Integer.parseInt(book.getOrDefault("quantity", "0"));
     }
 
     public Map<String, String> toMap() {

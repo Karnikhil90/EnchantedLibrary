@@ -23,6 +23,10 @@ public class Routes {
         this.library = new Library(filepath);
     }
 
+    public Routes(String filepath) {
+        this.library = new Library(filepath);
+    }
+
     public void addBook(Map<String, String> data) {
         Book book = new Book(data);
         library.addBook(book);
@@ -33,12 +37,12 @@ public class Routes {
     }
 
     // search , update
-    public void searchBookById(String id) {
-        library.searchBookById(id);
+    public Book searchBookById(String id) {
+        return library.searchBookById(id);
     }
 
-    public void searchBooksByTitle(String title) {
-        library.searchBookByTitle(title);
+    public Book searchBookByTitle(String title) {
+        return library.searchBookByTitle(title);
     }
 
     public List<Book> searchBooksByAuthor(String author) {
@@ -67,4 +71,15 @@ public class Routes {
     public void updateBook(String id, Map<String, String> data) {
         library.updateBookById(id, new Book(data));
     }
+
+    public void borrowBook(String id) {
+        Book book = searchBookById(id);
+        if (book != null) {
+            // book.setBorrowed(true);
+            updateBook(id, book.toMap());
+        } else {
+            System.out.println("Book not found.");
+        }
+    }
+
 }
