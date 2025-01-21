@@ -72,14 +72,38 @@ public class Routes {
         library.updateBookById(id, new Book(data));
     }
 
-    public void borrowBook(String id) {
+    public void borrowBook(String id, String borrowerName) {
         Book book = searchBookById(id);
         if (book != null) {
-            // book.setBorrowed(true);
-            updateBook(id, book.toMap());
+            if (book.getQuantity() > 0) {
+                book.decrementQuantity(1);
+                updateBook(id, book.toMap());
+                System.out.println(borrowerName + " has borrowed the book: " + book.getTitle());
+
+                // TODO: Track borrowed book details, including borrowerName and borrowed date
+            } else {
+                System.out.println("The book is out of stock.");
+            }
         } else {
             System.out.println("Book not found.");
         }
     }
+
+    public void returnBook(String id, String borrowerName) {
+        Book book = searchBookById(id);
+        if (book != null) {
+            book.incrementQuantity(1);
+            updateBook(id, book.toMap());
+            System.out.println(borrowerName + " has returned the book: " + book.getTitle());
+
+            // TODO: Remove or update the tracking details for this borrower
+        } else {
+            System.out.println("Book not found.");
+        }
+    }
+
+    // TODO: Create a system to track borrowed books, the borrowers, and the dates.
+    // Example: Use a Map<String, List<String>> where the key is the book ID,
+    // and the value is a list containing borrower details and the borrow date.
 
 }
