@@ -3,16 +3,17 @@ package inventory;
 import java.util.Map;
 
 public class Book {
-    private String title, author, id, price, publisher;
+    private String title, author, id, price, publisher, type;
     private int quantity;
 
-    public Book(String title, String author, String publisher, String price, String id, int quantity) {
+    public Book(String title, String author, String publisher, String price, String id, int quantity, String type) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.price = price;
         this.id = id;
         this.quantity = quantity;
+        this.type = type;
     }
 
     public Book(Map<String, String> book) {
@@ -21,6 +22,7 @@ public class Book {
         this.publisher = book.getOrDefault("publisher", null);
         this.price = book.getOrDefault("price", null);
         this.id = book.getOrDefault("id", null);
+        this.type = book.getOrDefault("type", null);
         this.quantity = Integer.parseInt(book.getOrDefault("quantity", "0"));
     }
 
@@ -70,6 +72,14 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getQuantity() {
