@@ -17,7 +17,9 @@ public class Routes {
     private Library library;
     private Scanner scanner;
     private String filepath = ".\\database\\books.csv";
+    private String field_filepath = ".\\database\\Field.csv";
     private Book book;
+    private MyCSV csv;
 
     public Routes() {
         this.library = new Library(filepath);
@@ -106,4 +108,36 @@ public class Routes {
     // Example: Use a Map<String, List<String>> where the key is the book ID,
     // and the value is a list containing borrower details and the borrow date.
 
+    // input about the field to search
+    // take input about the field
+
+    public String inputFiled() {
+        String input;
+        scanner = new Scanner(System.in);
+        csv = new MyCSV(field_filepath);
+        List<String> fields = csv.read();
+        System.out.println("EEEEEEEEEE");
+        List<String> header = csv.header();
+
+        if (header.isEmpty() || fields.isEmpty()) {
+            System.out.println("CSV file is empty or not properly formatted.");
+            return null;
+        }
+
+        System.out.println(header.get(0) + " : " + header.get(1));
+        for (int i = 1; i < fields.size(); i++) {
+            String[] books = fields.get(i).split(",");
+            System.out.println(i + " : " + books[0] + " : " + books[1]);
+        }
+
+        while (true) {
+            System.out.print("Enter the field number: ");
+            input = scanner.nextLine();
+            if (Integer.parseInt(input) > 0 && Integer.parseInt(input) < fields.size()) {
+                return input;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+    }
 }
