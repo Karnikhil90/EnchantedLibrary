@@ -71,7 +71,7 @@ public class Client_User {
         }
     }
 
-    private void clear() {
+    public void clear() {
         try {
             // Detect the operating system
             String os = System.getProperty("os.name").toLowerCase();

@@ -46,7 +46,7 @@ public class MyCSV {
      */
 
     public void write(String data) {
-        List<String> header = hearder();
+        List<String> header = header();
         List<String> rows = fileAccess.read();
 
         // if (header.get(0).equals("index") || rows.size() != 0)
@@ -80,16 +80,25 @@ public class MyCSV {
     }
 
     // o(n)
-    public List<String> hearder() {
-        String data = fileAccess.read(0);
-        List<String> hearder = Arrays.asList(data.split(","));
-        return hearder;
+    public List<String> header() {
+        try {
+            String data = fileAccess.read(0);
+            if (data == null || data.isEmpty()) {
+                System.out.println("Header is empty or not found.");
+                return new ArrayList<>();
+            }
+            return Arrays.asList(data.split(","));
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getCause());
+            return new ArrayList<>();
+        }
     }
 
     // o(n^2)
     public List<Map<String, String>> toMap() {
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        List<String> hearder = hearder();
+        List<String> hearder = header();
         List<String> rows = fileAccess.read();
 
         for (String row : rows) {
@@ -118,7 +127,7 @@ public class MyCSV {
     // that or something like that
     public void update(String condition, Map<String, String> data) {
         List<Map<String, String>> rows = toMap();
-        List<String> hearder = hearder();
+        List<String> hearder = header();
         List<String> newRows = new ArrayList<String>();
 
         for (Map<String, String> row : rows) {
@@ -134,6 +143,20 @@ public class MyCSV {
 
         fileAccess.write("");
         writeAll(newRows);
+    }
+
+    // specific header as a List
+    // get("name") : will return all the name in the file
+
+    public List<String> get(String header) {
+        List<Map<String, String>> books = toMap();
+        List<String> specific_header = new ArrayList<String>();
+        for (Map<String, String> book : books) {
+            if (book.get(header) != null) {
+                specific_header.add(book.get(header));
+            }
+        }
+        return specific_header;
     }
 
 }

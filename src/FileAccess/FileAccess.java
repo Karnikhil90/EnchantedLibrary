@@ -10,24 +10,19 @@ package FileAccess;
  */
 
 import java.io.File;
-import java.util.*;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class FileAccess {
     private String filepath;
     private File file;
-    private FileWriter fileWriter;
-    private Scanner scanner;
 
-    FileAccess(String filepath) {
-        // constructor
+    public FileAccess(String filepath) {
+        // Constructor
         this.filepath = filepath;
-        file = new File(filepath);
-        try {
-            fileWriter = new FileWriter(file);
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        this.file = new File(filepath);
     }
 
     public boolean isFileExists() {
@@ -35,58 +30,57 @@ public class FileAccess {
     }
 
     public void close() {
-        // close the file
-        try {
-            fileWriter.close();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        // Nothing to close because FileWriter and Scanner are handled locally
+        System.out.println("File operations completed.");
     }
 
-    // basic read from the .txt file
+    // Read all lines from the file
     public List<String> read() {
-        // read data from file
-        List<String> data = new ArrayList<String>();
-        try {
-            scanner = new Scanner(file);
+        List<String> data = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 data.add(scanner.nextLine());
             }
-            scanner.close();
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error reading file: " + e.getMessage());
         }
-
         return data;
     }
 
+    // Read a specific line from the file
     public String read(int line_number) {
         List<String> data = read();
+        if (line_number < 0 || line_number >= data.size()) {
+            System.out.println("Line number out of bounds.");
+            return null;
+        }
         return data.get(line_number);
     }
 
-    // it will write normally into txt files
+    // Write data to the file (with control over append mode)
     public void write(String data, boolean append) {
-        // write data to file
-        try {
-            fileWriter = new FileWriter(file, append);
-            fileWriter.write(data);
-            fileWriter.close();
+        try (FileWriter fileWriter = new FileWriter(file, append)) {
+            fileWriter.write(data + System.lineSeparator());
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
+    // Write data to the file (default to append mode)
     public void write(String data) {
         write(data, true);
     }
 
-    // Create file if not exists
+    // Create file if it does not exist
     public void createFile() {
         try {
-            file.createNewFile();
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error creating file: " + e.getMessage());
         }
     }
 }
