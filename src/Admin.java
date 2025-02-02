@@ -83,8 +83,8 @@ public class Admin {
                 return;
             }
             // if you want to modify the book fields then only enter the value else leave it
-            System.out.print("Enter book ID: ");
-            String id = scanner.nextLine();
+            // System.out.print("Enter book ID: ");
+            // String id = scanner.nextLine();
             System.out.print("Enter book title: ");
             String title = scanner.nextLine();
             System.out.print("Enter book author: ");
@@ -95,6 +95,22 @@ public class Admin {
             String quantity = scanner.nextLine();
             System.out.print("Enter book publisher: ");
             String publisher = scanner.nextLine();
+            System.out.println("Enter book type from the give field :");
+            String type = routes.inputFiled();
+
+            // data.put("id", id);
+            if (!title.isEmpty())
+                data.put("title", title);
+            if (!author.isEmpty())
+                data.put("author", author);
+            if (!price.isEmpty())
+                data.put("price", price);
+            if (!quantity.isEmpty())
+                data.put("quantity", quantity);
+            if (!publisher.isEmpty())
+                data.put("publisher", publisher);
+            if (!type.isEmpty())
+                data.put("type", type);
 
             routes.updateBook(given_id, data);
         } else if (cmd.equals("4")) {

@@ -38,6 +38,18 @@ public class Library {
     // Add a book to the library
     public void addBook(Book book) {
         books.add(book);
+        // save(book.toString(), true);
+    }
+
+    public void addBook(Map<String, String> data) {
+        Book book = new Book(data);
+        books.add(book);
+        // save(book.toString(), true);
+    }
+
+    public void addBooks(List<Book> books) {
+        this.books.addAll(books);
+        // save(false);
     }
 
     // Remove a book from the library by ID
@@ -103,4 +115,17 @@ public class Library {
         }
         return null;
     }
+
+    public void save() {
+        file.writeAll();
+
+    }
+
+    // public void save(boolean append) {
+    // file.save(filepath, append);
+    // }
+
+    // public void save(String filepath, boolean append) {
+    // file.save(filepath, append);
+    // }
 }

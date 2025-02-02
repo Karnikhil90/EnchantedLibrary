@@ -83,4 +83,20 @@ public class FileAccess {
             System.out.println("Error creating file: " + e.getMessage());
         }
     }
+
+    // Save method to write data to the file
+    public void save(String data, boolean append) {
+        write(data, append);
+        System.out.println("Data saved to file.");
+    }
+
+    // Overloaded save method with default append mode
+    public void save(String data) {
+        save(data, true);
+    }
+
+    // public void save() {
+
+    // }
+
 }
